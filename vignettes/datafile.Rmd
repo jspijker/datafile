@@ -39,7 +39,7 @@ contains some convienient functions.
 
 Let's give an example:
 
-```{r}
+```{r,eval=FALSE}
 
 datafileInit() 
 x<-rnorm(10)
@@ -52,14 +52,14 @@ the current working directory. Then we created some variable `x`. And
 using saveRDS and datafile we save it to disk. The final RDS file is
 now saved to `./data/x.rds`. To retrieve the rds file, we use:
 
-```{r}
+```{r,eval=FALSE}
 x<-readRDS(datafile("x.rds"))
 ```
 
 If even `datafile` is to much typing for you, you can use the alias
 `dfn()`
 
-```{r}
+```{r,eval=FALSE}
 x<-readRDS(dfn("x.rds"))
 
 ```
@@ -83,6 +83,6 @@ The only things that is changed, is the location of the base
 directory. Datafile expands your filenames to the right directory.
 
 ```{r}
-unlink("./data/",recursive=TRUE)
+#unlink("./data/",recursive=TRUE)
 ```
 

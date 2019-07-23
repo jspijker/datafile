@@ -4,7 +4,8 @@ datafile
 ========
 
 <!-- badges: start -->
-<!-- badges: end -->
+[![Build Status](https://travis-ci.org/jspijker/datafile.png?branch=master)](https://travis-ci.org/jspijker/datafile) <!-- badges: end -->
+
 The datafile package is build around the philosophy that data should be seperated from code. This means that data is always written to a different location (directory) than your current working directory.
 
 Installation
@@ -19,12 +20,11 @@ devtools::install_github("jspijker/datafile")
 Basic Example
 -------------
 
-In this example we create a datadirectory using `datafileInit()` under the current working directory. Then we created some variable `x`. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to `./data/x.rds`.
+In this example we create a datadirectory using `datafileInit()` under the current working directory. Then we created some variable `x`. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to `/tmp/Rtmp.....//data/x.rds`.
 
 ``` r
 
-datafileInit() 
-#> basedir set to /home/spijkerj/rivm/git/datafile
+datafileInit(basedir=tempdir()) 
 x<-rnorm(10)
 saveRDS(x,datafile("x.rds"))
 ```

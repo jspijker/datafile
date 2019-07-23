@@ -28,16 +28,15 @@ body {
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <h1 id="datafile">datafile</h1>
 <!-- badges: start -->
-<!-- badges: end -->
+<p><a href="https://travis-ci.org/jspijker/datafile"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAAAUCAYAAAD1GtHpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAABDtJREFUWIXtmFtMHHUUxn+zOzssM8QSYJFbTIz2wqXEgsVGBR5I4y1cNuJlHyBok6KJD2r0wQcbYzZpbINNTdhFV8vaQIhYKEkr8RYjwYjoy8bqg2laRSPZPhAouLuAu/P3yekuMnuhWraJX/JP/ud8Z8755puZZGakzs7OXEVRTthsNhdwC1mAV+1Xt1tCSqzpiLl18eNv4dD9sqIoJ2RZ7hVCbLcuA9mkxQyKhLQzhxqB+pVstVpd2SY62/Qkw202qVoWQmTFIxyPm8lEBSHJ2Sg4GzUlg0UIgdkaGhoy5dJdyXpk0j/vrnu44/ggu989l9H8TOu3spKaCGyp6fDwcFo9Mulf+PghPnG/wsDB/Slr97x3ftMZ8fmsN7G5uflfNzHHcSuFV+ZoqnCkrPXGGR0/w5vGBfhPTHS5XPj9ftxuNw7HtRMYGRlJqI2Pp6amNj0Jh8OB2+3G7/fjcrnSNrFqcBJJsnBg6FOqBicT8lWnPuLOY6fQqvcZ+Wc/+27T+fH5qsFJilpd7PZ8yM6+02h77zY4m6OE24+cZM/AOMWdTyXM3JKJoVAIp9PJ7OwsXV1dpndRfGy27+7uZmZmBqfTyerqatomelrqAfC01ONpqU/Iew828Pmx13C4ejPSAnA1qvP+Ew8x7emj2HXY4IpdvVz8Zhr/Yw+wGEmtM6WJY2NjaJrG+Pg4lZWV12ViZWUlExMTaJrG6Oho2iY2lhcB0FheRGN5EUIItOp9PO0/wzMfz/Dw8QFySysyNvHimdPU7bAjXZjFXlJmcOquaubPjVK3I4dLZ4dT6kz5iqOqKpFIBFVVjWYAuq4jSRK6rqMoSgKXbG/WLx5mmuLzZYdeZPqto1z69mskq43D56fTmp/QQ7FgAQoUGUmyXDMaKMuzQyRMqZqbVBOkeMUBaG1txW63097eTiAQMLj5+XkaGhpQFIW2tjZjULKrHwgEEvrFc6nWP2ptCgUixoGyYjqeeyGt+Rv30t/mbOCCPwRwPPgoUk4uxY90ptSZ0kRd1/H5fNTU1OD1eg2uv7+fnp4efD4fkUgkLeEej4fa2lp8Ph/RaPS6TJzxvsnel1+nqm+QhYWFLZlo1j/wzglya/dT3f8BYavCn5FwUm2S0+k0vU+DwSCaphEOh5Flmfz8fKxWKwBra2ssLy+j6zp5eXmsrKxQUlJiHLfZPhaLsbS0RDQaRVVVQqGQwcVjs7840/MLNJYVGvGV8Bo/L4eQgFLNztxKxODja9PZb4wj0Rg/La6whoV7n+zC0dBI8OhLZjYhdXR0ZN03Vjb8Cqsb+QKh66z8epkv3zhCxVLQtPb/b2cTnGyqRZJAlWV25WsIm2xaKwsh/gDybpy81MgGE+8rLUiIzTStYxGyxWIZjsVivTdCWLrIBhPTxe/IFyyLi4vPW63WtyVJWt5uQTcT1rGIX8j5/jKi6S9truBBAevapAAAAABJRU5ErkJggg==" alt="Build Status" /></a> <!-- badges: end --></p>
 <p>The datafile package is build around the philosophy that data should be seperated from code. This means that data is always written to a different location (directory) than your current working directory.</p>
 <h2 id="installation">Installation</h2>
 <p>You can install the github version of this package with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;jspijker/datafile&quot;</span>)</code></pre></div>
 <h2 id="basic-example">Basic Example</h2>
-<p>In this example we create a datadirectory using <code>datafileInit()</code> under the current working directory. Then we created some variable <code>x</code>. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to <code>./data/x.rds</code>.</p>
+<p>In this example we create a datadirectory using <code>datafileInit()</code> under the current working directory. Then we created some variable <code>x</code>. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to <code>/tmp/Rtmp.....//data/x.rds</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw">datafileInit</span>() 
-<span class="co">#&gt; basedir set to /home/spijkerj/rivm/git/datafile</span>
+<span class="kw">datafileInit</span>(<span class="dt">basedir=</span><span class="kw">tempdir</span>()) 
 x&lt;-<span class="kw">rnorm</span>(<span class="dv">10</span>)
 <span class="kw">saveRDS</span>(x,<span class="kw">datafile</span>(<span class="st">&quot;x.rds&quot;</span>))</code></pre></div>
 <p>To retrieve the rds file, we use:</p>
