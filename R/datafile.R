@@ -24,10 +24,9 @@ datafile <- function(fname) {
 }
 
 # #' drname add
-# #' @export
+#' @export
 # #' describe in datafile short hand datafile function
-# dfn <- function(...) {
-#     datafile(...)
-# }
+dfn <- function(...) {
+    datafile(...)
+}
 
-dfn <- datafile

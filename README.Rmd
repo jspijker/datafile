@@ -40,7 +40,7 @@ now saved to `/tmp/Rtmp.....//data/x.rds`.
 
 
 ```{r}
-
+library(datafile)
 datafileInit(basedir=tempdir()) 
 x<-rnorm(10)
 saveRDS(x,datafile("x.rds"))
