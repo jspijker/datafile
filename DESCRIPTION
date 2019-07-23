@@ -1,0 +1,19 @@
+Package: datafile
+Title: Create Consequent File Paths for Storing Data
+Version: 0.0.1
+Authors@R: 
+    person(given = "Job",
+           family = "Spijker",
+           role = c("aut", "cre"),
+           email = "job.spijker@rivm.nl")
+Description: This package contains convienient functions to seperate data from code. It initialises a data directory and provide functions to create file paths to this directory. This package extents the functionality of the here package.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.0.0), here
+Suggests: 
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
