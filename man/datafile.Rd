@@ -3,16 +3,20 @@
 \name{datafile}
 \alias{datafile}
 \alias{dfn}
-\title{return path of a file in the data directory}
+\title{Expand a filename to a full path.}
 \usage{
 datafile(fname)
 }
 \arguments{
-\item{fname}{filename (without the path)}
+\item{fname}{filename}
 }
 \value{
 full path of file to data directory
+
+This function assumes that the data directory is correctly
+initialized using datafileInit(). It will return a full path to the
+file in the data directory.
 }
 \description{
-Returns the full here() path from a file in the data directory
+This function expands a filename to a full file path
 }

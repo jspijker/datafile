@@ -1,11 +1,15 @@
-#' return path of a file in the data directory
+#' Expand a filename to a full path.
 #' 
-#' Returns the full here() path from a file in the data directory
+#' This function expands a filename to a full file path
 #'
-#' @param fname filename (without the path)
+#' @param fname filename 
 #'
 #' @return
 #' full path of file to data directory
+#' 
+#' This function assumes that the data directory is correctly
+#' initialized using datafileInit(). It will return a full path to the
+#' file in the data directory.
 #' 
 #' @aliases dfn
 #' @export

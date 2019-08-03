@@ -21,23 +21,31 @@ library(datafile)
 # Introduction
 
 The datafile package is build around the philosophy that data should
-be seperated from code. This means that data is always written to a
-different location (directory) than your current working directory.
-
-The data directory must be given as relative path to you current
-working directory, e.g. ../../data or ./data. If you use absolute
-paths, e.g. /home/user/project/data, your code won't be portable.
-Relative paths are easily created using the `here` package, this
-packagage builds on top of that.
+be separated from code. This means that data is always written to a
+different location (directory) than your current working directory,
+which contains the code.
 
 To save you from the hassle of creating a data directory or to type
 the data directory filepath over and over again, the datafile package
 contains some convienient functions. 
 
-# Usage
+Instead of typing filepaths, you indicate where data is stored and
+then use the `datafile()` function to expand your filename into a full
+file path. So the result of datafile("somedata.rds") can be
+'/home/user/work/project/data/somedata.rds'.
 
+The location of the data directory depends on how you initialize
+datafile. It is aimed to be flexible so it can suit many different
+workflows of scenario's.
 
-Let's give an example:
+To illustrate the datafile package we give a few examples and usage
+scenarios.
+
+# Examples
+
+## Example 1, basic usage
+
+Let's start with a basic example:
 
 ```{r,eval=FALSE}
 
@@ -47,40 +55,105 @@ saveRDS(x,datafile("x.rds"))
 
 ```
 
-In this example we create a datadirectory using `datafileInit()` under
-the current working directory. Then we created some variable `x`. And
+In this example we create a data directory using `datafileInit()` under
+the current root directory of your project. Datafileinit uses the
+here() function to obtain this root directory. Under this root
+directory, a directory named 'data' is created.
+
+Then we created some variable `x`. And
 using saveRDS and datafile we save it to disk. The final RDS file is
-now saved to `./data/x.rds`. To retrieve the rds file, we use:
+now saved to `./data/x.rds`, relative to the project root directory.
+
+It is good practice to create data directories as relative paths to you current
+working directory or project root, e.g. ../../data or ./data. If you use absolute
+paths, e.g. /home/johndoe/project/data, your code won't be reproducible
+by other users. 
+
+To retrieve the rds file, we use:
 
 ```{r,eval=FALSE}
 x<-readRDS(datafile("x.rds"))
 ```
 
-If even `datafile` is to much typing for you, you can use the alias
-`dfn()`
-
-```{r,eval=FALSE}
-x<-readRDS(dfn("x.rds"))
-
-```
+## Example 2, different base directory
 
 Now let's assume you want to store your data in a temporary directory,
-for hatever reasons, in that case the above example looks like this:
+because you are working using containers and only use intermediate
+data. In that case you can provide datafileInit with a specific base
+directory, absolute or relative. The above example then looks like this:
 
 
 ```{r}
-
 datafileInit(basedir=tempdir()) 
 x<-rnorm(10)
 saveRDS(x,datafile("x.rds"))
 
 # read it back:
 x<-readRDS(datafile("x.rds"))
-
 ```
 
 The only things that is changed, is the location of the base
 directory. Datafile expands your filenames to the right directory.
+
+## Example 3, using datadir argument
+
+One other possibility to use datafile is for example when you want to
+store different itterations of your data. By using the datadir argument
+you can change the name of the data directory. Let's take the same
+example as above and use the datadir argument.
+
+```{r}
+datafileInit(basedir=tempdir(),datadir='data01') 
+x<-rnorm(10)
+saveRDS(x,datafile("x.rds"))
+
+# read it back:
+x<-readRDS(datafile("x.rds"))
+```
+
+Now if you want to create a new itteration of your model and want to
+store the new data somewhere else, just change the datadir directory.
+Please not that all other code isn't changed.
+
+```{r}
+datafileInit(basedir=tempdir(),datadir='data02') 
+x<-rnorm(10)
+saveRDS(x,datafile("x.rds"))
+```
+
+## Example 4, using the subdir argument
+
+If you use git for your data science projects, the default basedir for
+datafile is set at the root of the git repository. Hence, the default data
+directory will be at the root of your git repository. 
+
+One way of managing your project is to use diferent subdirectories for
+the different steps in your project, for example data import, analyses
+and reporting. With datafile you can create separate data directories
+in each subdirectory using the subdir argument. 
+
+```{r eval=FALSE}
+datafileInit(subdir='import') 
+x<-rnorm(10)
+saveRDS(x,datafile("x.rds"))
+
+# read it back:
+x<-readRDS(datafile("x.rds"))
+```
+
+In this case the data is stored at './import/data/x.rds'
+
+
+## Example 5, short notation
+
+There is one more thing! If `datafile` is to much typing for you, you can use the alias
+`dfn()`:
+
+```{r,eval=FALSE}
+x<-readRDS(dfn("x.rds"))
+
+```
+
 
 ```{r}
 #unlink("./data/",recursive=TRUE)

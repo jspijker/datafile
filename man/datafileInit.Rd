@@ -16,9 +16,27 @@ the subdirectory}
 }
 \value{
 full path of file to data directory
+
+Before using the datafile function you must tell were to store the
+data. With this function you initialize the datafiel package and
+sets the base directory. The default base directory is the
+directory returned by here(). In this base directory a directory
+is created with the name given by the datadir argument. The default
+name is 'data'. 
+
+Using the 'subdir' argument, a sub-directory name can be added to
+the base directory. For example, if you have your project in a git
+repository and use subdirectories to separate the the different
+parts of the projectory (e.g. for importing data, modelling and
+reporting), then the basedir is set at the root of the git
+repository (using `here()`) and you can use the subdir argument to
+indicate in which subdirectory of your git repository the data
+directory should be created.
+
+This function checks if the directories exists and if names are
+valid (e.g. are of type character). If not, it will throw an error.
 }
 \description{
-Data is stored in a subdirectory under the current workdir, or base
-directory. This function sets the base directory, checks if it
+This function sets the base directory, checks if it
 exists and, if needed, creates the data directory
 }

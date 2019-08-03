@@ -20,8 +20,9 @@ knitr::opts_chunk$set(
 
 
 The datafile package is build around the philosophy that data should
-be seperated from code. This means that data is always written to a
-different location (directory) than your current working directory.
+be separated from code. This means that data is always written to a
+different location (directory) than your current working directory,
+which contains the code.
 
 ## Installation
 
@@ -33,10 +34,12 @@ devtools::install_github("jspijker/datafile")
 
 ## Basic Example
 
-In this example we create a datadirectory using `datafileInit()` under
-the current working directory. Then we created some variable `x`. And
-using saveRDS and datafile we save it to disk. The final RDS file is
-now saved to `/tmp/Rtmp.....//data/x.rds`. 
+In this example we create a 'data' directory using `datafileInit()`.The
+default location is to create a data directory under the current working
+directory.  You can create this data directory at any location and for
+reproducibility we use the system temporary directory.  Then we create
+some variable `x`. Using saveRDS and datafile we save it to disk. The
+final RDS file is now saved to `/tmp/Rtmp[.....]/data/x.rds`.
 
 
 ```{r}
@@ -52,17 +55,15 @@ To retrieve the rds file, we use:
 x<-readRDS(datafile("x.rds"))
 ```
 
-If even `datafile` is to much typing for you, you can use the alias
-`dfn()`
+If `datafile` is to much typing for you, you can use the alias
+`dfn()`, which stands for 'data file name'.
 
 ```{r}
 x<-readRDS(dfn("x.rds"))
 
 ```
 
-Please see the vignette for more examples how to use this function.
-
-
+Please see the vignette for more examples how to use this package()
 
 ```{r,echo=FALSE}
 unlink("./data/",recursive=TRUE)
