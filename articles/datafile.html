@@ -80,32 +80,76 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The datafile package is build around the philosophy that data should be seperated from code. This means that data is always written to a different location (directory) than your current working directory.</p>
-<p>The data directory must be given as relative path to you current working directory, e.g. ../../data or ./data. If you use absolute paths, e.g. /home/user/project/data, your code won’t be portable. Relative paths are easily created using the <code>here</code> package, this packagage builds on top of that.</p>
+<p>The datafile package is build around the philosophy that data should be separated from code. This means that data is always written to a different location (directory) than your current working directory, which contains the code.</p>
 <p>To save you from the hassle of creating a data directory or to type the data directory filepath over and over again, the datafile package contains some convienient functions.</p>
+<p>Instead of typing filepaths, you indicate where data is stored and then use the <code><a href="../reference/datafile.html">datafile()</a></code> function to expand your filename into a full file path. So the result of datafile(“somedata.rds”) can be ‘/home/user/work/project/data/somedata.rds’.</p>
+<p>The location of the data directory depends on how you initialize datafile. It is aimed to be flexible so it can suit many different workflows of scenario’s.</p>
+<p>To illustrate the datafile package we give a few examples and usage scenarios.</p>
 </div>
-<div id="usage" class="section level1">
+<div id="examples" class="section level1">
 <h1 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h1>
-<p>Let’s give an example:</p>
+<a href="#examples" class="anchor"></a>Examples</h1>
+<div id="example-1-basic-usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-1-basic-usage" class="anchor"></a>Example 1, basic usage</h2>
+<p>Let’s start with a basic example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../reference/datafileInit.html">datafileInit</a></span>() </a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
-<p>In this example we create a datadirectory using <code><a href="../reference/datafileInit.html">datafileInit()</a></code> under the current working directory. Then we created some variable <code>x</code>. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to <code>./data/x.rds</code>. To retrieve the rds file, we use:</p>
+<p>In this example we create a data directory using <code><a href="../reference/datafileInit.html">datafileInit()</a></code> under the current root directory of your project. Datafileinit uses the here() function to obtain this root directory. Under this root directory, a directory named ‘data’ is created.</p>
+<p>Then we created some variable <code>x</code>. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to <code>./data/x.rds</code>, relative to the project root directory.</p>
+<p>It is good practice to create data directories as relative paths to you current working directory or project root, e.g. ../../data or ./data. If you use absolute paths, e.g. /home/johndoe/project/data, your code won’t be reproducible by other users.</p>
+<p>To retrieve the rds file, we use:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
-<p>If even <code>datafile</code> is to much typing for you, you can use the alias <code><a href="../reference/datafile.html">dfn()</a></code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">dfn</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
-<p>Now let’s assume you want to store your data in a temporary directory, for hatever reasons, in that case the above example looks like this:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="../reference/datafileInit.html">datafileInit</a></span>(<span class="dt">basedir=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>()) </a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co"># read it back:</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
+</div>
+<div id="example-2-different-base-directory" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-2-different-base-directory" class="anchor"></a>Example 2, different base directory</h2>
+<p>Now let’s assume you want to store your data in a temporary directory, because you are working using containers and only use intermediate data. In that case you can provide datafileInit with a specific base directory, absolute or relative. The above example then looks like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/datafileInit.html">datafileInit</a></span>(<span class="dt">basedir=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>()) </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># read it back:</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
 <p>The only things that is changed, is the location of the base directory. Datafile expands your filenames to the right directory.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">#unlink("./data/",recursive=TRUE)</span></a></code></pre></div>
+</div>
+<div id="example-3-using-datadir-argument" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-3-using-datadir-argument" class="anchor"></a>Example 3, using datadir argument</h2>
+<p>One other possibility to use datafile is for example when you want to store different itterations of your data. By using the datadir argument you can change the name of the data directory. Let’s take the same example as above and use the datadir argument.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/datafileInit.html">datafileInit</a></span>(<span class="dt">basedir=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(),<span class="dt">datadir=</span><span class="st">'data01'</span>) </a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># read it back:</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
+<p>Now if you want to create a new itteration of your model and want to store the new data somewhere else, just change the datadir directory. Please not that all other code isn’t changed.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/datafileInit.html">datafileInit</a></span>(<span class="dt">basedir=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(),<span class="dt">datadir=</span><span class="st">'data02'</span>) </a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
+</div>
+<div id="example-4-using-the-subdir-argument" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-4-using-the-subdir-argument" class="anchor"></a>Example 4, using the subdir argument</h2>
+<p>If you use git for your data science projects, the default basedir for datafile is set at the root of the git repository. Hence, the default data directory will be at the root of your git repository.</p>
+<p>One way of managing your project is to use diferent subdirectories for the different steps in your project, for example data import, analyses and reporting. With datafile you can create separate data directories in each subdirectory using the subdir argument.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/datafileInit.html">datafileInit</a></span>(<span class="dt">subdir=</span><span class="st">'import'</span>) </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co"># read it back:</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
+<p>In this case the data is stored at ‘./import/data/x.rds’</p>
+</div>
+<div id="example-5-short-notation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-5-short-notation" class="anchor"></a>Example 5, short notation</h2>
+<p>There is one more thing! If <code>datafile</code> is to much typing for you, you can use the alias <code><a href="../reference/datafile.html">dfn()</a></code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="../reference/datafile.html">dfn</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">#unlink("./data/",recursive=TRUE)</span></a></code></pre></div>
+</div>
 </div>
   </div>
 
@@ -115,7 +159,15 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#usage">Usage</a></li>
+      <li>
+<a href="#examples">Examples</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#example-1-basic-usage">Example 1, basic usage</a></li>
+      <li><a href="#example-2-different-base-directory">Example 2, different base directory</a></li>
+      <li><a href="#example-3-using-datadir-argument">Example 3, using datadir argument</a></li>
+      <li><a href="#example-4-using-the-subdir-argument">Example 4, using the subdir argument</a></li>
+      <li><a href="#example-5-short-notation">Example 5, short notation</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>

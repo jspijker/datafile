@@ -73,7 +73,7 @@
 <a href="#datafile" class="anchor"></a>datafile</h1></div>
 <!-- badges: start -->
 
-<p>The datafile package is build around the philosophy that data should be seperated from code. This means that data is always written to a different location (directory) than your current working directory.</p>
+<p>The datafile package is build around the philosophy that data should be separated from code. This means that data is always written to a different location (directory) than your current working directory, which contains the code.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -83,7 +83,7 @@
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-example" class="anchor"></a>Basic Example</h2>
-<p>In this example we create a datadirectory using <code><a href="reference/datafileInit.html">datafileInit()</a></code> under the current working directory. Then we created some variable <code>x</code>. And using saveRDS and datafile we save it to disk. The final RDS file is now saved to <code>/tmp/Rtmp.....//data/x.rds</code>.</p>
+<p>In this example we create a ‘data’ directory using <code><a href="reference/datafileInit.html">datafileInit()</a></code>.The default location is to create a data directory under the current working directory. You can create this data directory at any location and for reproducibility we use the system temporary directory. Then we create some variable <code>x</code>. Using saveRDS and datafile we save it to disk. The final RDS file is now saved to <code>/tmp/Rtmp[.....]/data/x.rds</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(datafile)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Loading required package: here</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; here() starts at /home/travis/build/jspijker/datafile</span></a>
@@ -92,9 +92,9 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS</a></span>(x,<span class="kw"><a href="reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
 <p>To retrieve the rds file, we use:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="reference/datafile.html">datafile</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
-<p>If even <code>datafile</code> is to much typing for you, you can use the alias <code><a href="reference/datafile.html">dfn()</a></code></p>
+<p>If <code>datafile</code> is to much typing for you, you can use the alias <code><a href="reference/datafile.html">dfn()</a></code>, which stands for ‘data file name’.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">x&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(<span class="kw"><a href="reference/datafile.html">dfn</a></span>(<span class="st">"x.rds"</span>))</a></code></pre></div>
-<p>Please see the vignette for more examples how to use this function.</p>
+<p>Please see the vignette for more examples how to use this package()</p>
 </div>
 </div>
   </div>

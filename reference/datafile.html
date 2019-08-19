@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>return path of a file in the data directory — datafile • datafile</title>
+<title>Expand a filename to a full path. — datafile • datafile</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="return path of a file in the data directory — datafile" />
+<meta property="og:title" content="Expand a filename to a full path. — datafile" />
 
-<meta property="og:description" content="Returns the full here() path from a file in the data directory" />
+<meta property="og:description" content="This function expands a filename to a full file path" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -100,14 +100,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>return path of a file in the data directory</h1>
+    <h1>Expand a filename to a full path.</h1>
     
     <div class="hidden name"><code>datafile.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Returns the full here() path from a file in the data directory</p>
+    <p>This function expands a filename to a full file path</p>
     
     </div>
 
@@ -118,13 +118,16 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>fname</th>
-      <td><p>filename (without the path)</p></td>
+      <td><p>filename</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>full path of file to data directory</p>
+<p>This function assumes that the data directory is correctly
+initialized using datafileInit(). It will return a full path to the
+file in the data directory.</p>
     
 
   </div>
