@@ -15,8 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-install_packages("remotes")
-remotes::install.github("jspijker/datafile")
+install.packages("remotes", repos='https://mirror.lyrahosting.com/CRAN/')
+remotes::install_github("jspijker/datafile")
 library(datafile)
 ```
 
