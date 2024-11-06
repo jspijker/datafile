@@ -86,6 +86,7 @@ directory, absolute or relative. The above example then looks like this:
 
 
 ```{r}
+library(datafile)
 datafileInit(basedir=tempdir()) 
 x<-rnorm(10)
 saveRDS(x,datafile("x.rds"))
