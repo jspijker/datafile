@@ -50,7 +50,7 @@ scenarios.
 Let's start with a basic example:
 
 ```{r,eval=FALSE}
-
+library(datafile)
 datafileInit() 
 x<-rnorm(10)
 saveRDS(x,datafile("x.rds"))
